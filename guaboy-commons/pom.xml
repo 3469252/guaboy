@@ -1,0 +1,152 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.guaboy</groupId>
+	<artifactId>guaboy-commons</artifactId>
+	<version>1.0.0-RELEASE</version>
+	<name>guaboy-commons</name>
+
+
+	<dependencies>
+		<!-- servlet-api -->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>3.1.0</version>
+			<optional>true</optional>
+		</dependency>
+
+		<!-- spring-context -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+			<version>4.3.17.RELEASE</version>
+			<optional>true</optional>
+		</dependency>
+
+		<!-- jackson -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>2.8.11.1</version>
+			<optional>true</optional>
+		</dependency>
+
+		<!-- fastjson -->
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>fastjson</artifactId>
+			<version>1.2.32</version>
+			<optional>true</optional>
+		</dependency>
+
+		<!-- mybatis -->
+		<dependency>
+			<groupId>org.mybatis</groupId>
+			<artifactId>mybatis</artifactId>
+			<version>3.4.6</version>
+			<optional>true</optional>
+		</dependency>
+
+		<!-- jedis -->
+		<dependency>
+			<groupId>redis.clients</groupId>
+			<artifactId>jedis</artifactId>
+			<version>2.9.3</version>
+			<optional>true</optional>
+		</dependency>
+	</dependencies>
+
+
+	<build>
+		<finalName>${project.artifactId}</finalName>
+		<plugins>
+			<!-- 指定Java编译插件 -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.2</version>
+				<configuration>
+					<source>1.8</source>
+					<target>1.8</target>
+					<encoding>UTF-8</encoding>
+				</configuration>
+			</plugin>
+
+			<!-- 资源文件拷贝插件 -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-resources-plugin</artifactId>
+				<version>3.0.1</version>
+				<configuration>
+					<encoding>UTF-8</encoding>
+				</configuration>
+				<executions>
+					<execution>
+						<id>copy-resources</id>
+						<phase>process-resources</phase>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${project.build.outputDirectory}</outputDirectory>
+							<resources>
+								<resource>
+									<directory>src/main/java</directory>
+									<includes>
+										<!-- <include>**/wrap/*.java</include> -->
+									</includes>
+								</resource>
+							</resources>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+			<!-- 配置源码JAR,过滤resources目录 -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+				<version>3.0.1</version>
+				<configuration>
+					<attach>true</attach>
+					<excludeResources>true</excludeResources>
+				</configuration>
+				<executions>
+					<execution>
+						<phase>compile</phase>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+
+	<repositories>
+		<repository>
+			<id>guaboy</id>
+			<url>http://repo.guaboy.com/nexus/content/groups/public</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</repository>
+	</repositories>
+
+	<distributionManagement>
+		<repository>
+			<id>nexus-releases</id>
+			<url>http://repo.guaboy.com/nexus/content/repositories/releases</url>
+		</repository>
+		<snapshotRepository>
+			<id>nexus-snapshots</id>
+			<url>http://repo.guaboy.com/nexus/content/repositories/snapshots</url>
+			<uniqueVersion>false</uniqueVersion>
+		</snapshotRepository>
+	</distributionManagement>
+
+</project>
